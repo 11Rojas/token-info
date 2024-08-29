@@ -1,19 +1,17 @@
-import {BASE_URL} from '../consts'
-import type { Profile } from '../types/profile'
+import {get, isValidToken} from '../utils'
+import type {Profile} from '../types/profile'
 
-//Function for get user info
-export default async function getUser(token: string):Promise<Profile> {
-  //Verify if the token is valid
+/**
+ * Get an Discord profile
+ * @param token - Discord token from user
+ * @returns
+ */
+export async function getProfile(token: string, options = {}): Promise<Profile> {
+  const user = await get('/users/@me', token)
+  const profile = await get(`${user.id}/profile`, token)
 
-
-  //Get profile
-  const response = await fetch(`${BASE_URL}/users/@me`, {
-    headers: {
-      Authorization: token,
-    },
-  })
-  if(!response.ok) throw Error('Token invalid')
-  //Response data in json
-  const data = await response.json()
-  return data
+  return {
+    ...user,
+    ...profile,
+  } as Profile
 }

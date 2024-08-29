@@ -3,7 +3,9 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "build" : "tsup"
+    "lint": "biome lint --write src/**/*.ts",
+    "format": "biome format --write .",
+    "build": "tsup"
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
@@ -12,8 +14,5 @@
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "axios": "^1.7.5"
   }
 }
